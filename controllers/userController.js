@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const getAllUsers = async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT id, fullname, username, created_at, updated_at FROM users');
+    const [rows] = await pool.query('SELECT users_id, fullname, username, created_at, updated_at FROM users');
     res.json(rows);
 
   } catch (err) {
@@ -20,7 +20,7 @@ const getUserById = async (req, res) => {
   }
 
   try {
-    const [rows] = await pool.query('SELECT id, fullname, username, created_at, updated_at FROM users WHERE id = ?', [id]);
+    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [id]);
 
     if (rows.length === 0) {
       return res.status(404).json({ error: 'The user can not be found' });
@@ -58,7 +58,7 @@ const createUser = async (req, res) => {
       
     try {
       const hashedPassword = await bcrypt.hash(passwordx, 10);
-      const [result] = await pool.query('UPDATE users SET fullname = ?, username = ?, passwordx = ? WHERE id = ?', [fullname, username, hashedPassword, id]);
+      const [result] = await pool.query('UPDATE users SET fullname = ?, username = ?, passwordx = ? WHERE users_id = ?', [fullname, username, hashedPassword, id]);
   
       if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'Can not update, User can not be found' });
@@ -79,7 +79,7 @@ const createUser = async (req, res) => {
 
   
     try {
-      const [result] = await pool.query('DELETE FROM users WHERE id = ?', [id]);
+      const [result] = await pool.query('DELETE FROM users WHERE users_id = ?', [id]);
   
       if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'User can not be found' });
