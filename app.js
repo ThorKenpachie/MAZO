@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 // CORS middleware - Allowing specific origin (your frontend)
 const cors = require('cors');
 app.use(cors({
-  origin: ' http://localhost:5173/', // Your frontend URL (adjust if needed)
+  origin: 'http://localhost:5173/', // Your frontend URL (adjust if needed)
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow Authorization header (for JWT)
 }));

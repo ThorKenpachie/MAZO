@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app",  
-
-    "dev": "nodemon app",  
+    "start": "node app",
+    "dev": "nodemon app",
     "test": "echo \"No test script available\""
   },
   "keywords": [],
@@ -25,4 +24,3 @@
     "nodemon": "^3.1.7"
   }
 }
-

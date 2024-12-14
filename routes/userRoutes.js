@@ -9,6 +9,6 @@ router.get('/', authenticateToken, getAllUsers);
 router.get('/:user_id', authenticateToken, getUserById);
 router.post('/', authenticateToken, createUser);
 router.put('/:user_id', authenticateToken, updateUser);
-router.delete('/:user_id', authenticateToken, deleteUser); // Update here too
+router.delete('/user/:user_id', authenticateToken, deleteUser); // Update here too
 
 module.exports = router;
