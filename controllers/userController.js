@@ -4,11 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const getAllUsers = async (req, res) => {
   try {
-<<<<<<< HEAD
     const [rows] = await pool.query('SELECT users_id, fullname, username, created_at, updated_at FROM users');
-=======
-    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users');
->>>>>>> 1c0d709eeb7fdf9204888637e43e204f65f1474b
     res.json(rows);
 
   } catch (err) {
@@ -24,11 +20,7 @@ const getUserById = async (req, res) => {
   }
 
   try {
-<<<<<<< HEAD
     const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [id]);
-=======
-    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE id = ?', [id]);
->>>>>>> 1c0d709eeb7fdf9204888637e43e204f65f1474b
 
     if (rows.length === 0) {
       return res.status(404).json({ error: 'The user can not be found' });
@@ -79,25 +71,28 @@ const createUser = async (req, res) => {
   };
 
   const deleteUser = async (req, res) => {
-    const { id } = req.params;
+    const { user_id } = req.params;
 
-    if (!id || isNaN(Number(id))) {
+    console.log("Received user_id:", user_id); // Log to check if the parameter is correct
+
+    if (!user_id || isNaN(Number(user_id))) {
         return res.status(400).json({ error: 'Invalid or missing ID' });
-      }
-
-  
-    try {
-      const [result] = await pool.query('DELETE FROM users WHERE users_id = ?', [id]);
-  
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ error: 'User can not be found' });
-      }
-  
-      res.json({ message: 'The user has been deleted successfully' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
     }
-  };
+
+    try {
+        // Ensure we are using the correct column name 'user_id' for the query
+        const [result] = await pool.query('DELETE FROM users WHERE user_id = ?', [user_id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'User cannot be found' });
+        }
+
+        res.json({ message: 'The user has been deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
   
   module.exports = { getAllUsers, getUserById, createUser, updateUser, deleteUser };
 

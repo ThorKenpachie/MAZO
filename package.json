@@ -4,11 +4,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app",  
-<<<<<<< HEAD
+
     "dev": "nodemon app",  
-=======
-    "dev": "nodemon app", 
->>>>>>> 1c0d709eeb7fdf9204888637e43e204f65f1474b
     "test": "echo \"No test script available\""
   },
   "keywords": [],

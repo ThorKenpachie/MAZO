@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 
 // MySQL database connection configuration
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'your_password',
-  database: 'your_database',
+  host: 'mysql-175ec073-gbox-adetmazo.l.aivencloud.com',
+  user: 'avnadmin',
+  password: 'AVNS_fSIV2PXwSc7i2tQYxpI',
+  database: 'defaultdb',
 });
 
 // Connect to the database

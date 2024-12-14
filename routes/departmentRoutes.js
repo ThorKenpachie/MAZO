@@ -9,4 +9,9 @@ router.post('/', createDept);
 router.put('/:dept_id', updateDept);
 router.delete('/:dept_id', deleteDept);
 
+// Route to get all departments
+router.get('/departments', (req, res) => {
+    res.json(departments); // Respond with the departments
+});
+
 module.exports = router;
