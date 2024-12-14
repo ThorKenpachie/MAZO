@@ -7,6 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const studentRoutes = require('./routes/studentRoutes');
+const cors = require('cors');
 
 const app = express();
 
@@ -14,11 +15,10 @@ const app = express();
 app.use(bodyParser.json());
 
 // CORS middleware - Allowing specific origin (your frontend)
-const cors = require('cors');
 app.use(cors({
-  origin: 'http://localhost:5173/', // Your frontend URL (adjust if needed)
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow Authorization header (for JWT)
+  origin: 'http://localhost:5173', // Allow your frontend to access the server
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Specify allowed headers
 }));
 
 // Health check route to ensure the server is running
