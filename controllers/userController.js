@@ -19,15 +19,15 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   const { id } = req.params;
 
-  if (!id || isNaN(Number(id))) {
+  if (!id || isNaN(Number(user_id))) {
     return res.status(400).json({ error: 'Invalid please input numbers only' });
   }
 
   try {
 <<<<<<< HEAD
-    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [id]);
+    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [user_id]);
 =======
-    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE id = ?', [id]);
+    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [user_id]);
 >>>>>>> 1c0d709eeb7fdf9204888637e43e204f65f1474b
 
     if (rows.length === 0) {
