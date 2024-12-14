@@ -13,14 +13,22 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const { id } = req.params;
+  const { user_id } = req.params;
 
-  if (!id || isNaN(Number(id))) {
+  if (!id || isNaN(Number(user_id))) {
     return res.status(400).json({ error: 'Invalid please input numbers only' });
   }
 
   try {
+<<<<<<< HEAD
     const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [id]);
+=======
+<<<<<<< HEAD
+    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [user_id]);
+=======
+    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users WHERE user_id = ?', [user_id]);
+>>>>>>> 1c0d709eeb7fdf9204888637e43e204f65f1474b
+>>>>>>> 29281361ff822837067857edb8c3c8c58b689ea7
 
     if (rows.length === 0) {
       return res.status(404).json({ error: 'The user can not be found' });
@@ -45,10 +53,10 @@ const createUser = async (req, res) => {
   };
   
   const updateUser = async (req, res) => {
-    const { id } = req.params;
+    const { user_id } = req.params;
     const { fullname, username, passwordx } = req.body;
 
-    if (!id || isNaN(Number(id))) {
+    if (!user_id || isNaN(Number(user_id))) {
         return res.status(400).json({ error: 'Invalid or missing ID' });
       }
 
@@ -58,7 +66,7 @@ const createUser = async (req, res) => {
       
     try {
       const hashedPassword = await bcrypt.hash(passwordx, 10);
-      const [result] = await pool.query('UPDATE users SET fullname = ?, username = ?, passwordx = ? WHERE users_id = ?', [fullname, username, hashedPassword, id]);
+      const [result] = await pool.query('UPDATE users SET fullname = ?, username = ?, passwordx = ? WHERE users_id = ?', [fullname, username, hashedPassword, user_id]);
   
       if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'Can not update, User can not be found' });
@@ -73,10 +81,28 @@ const createUser = async (req, res) => {
   const deleteUser = async (req, res) => {
     const { user_id } = req.params;
 
+<<<<<<< HEAD
     console.log("Received user_id:", user_id); // Log to check if the parameter is correct
 
     if (!user_id || isNaN(Number(user_id))) {
         return res.status(400).json({ error: 'Invalid or missing ID' });
+=======
+    if (!user_id || isNaN(Number(user_id))) {
+        return res.status(400).json({ error: 'Invalid or missing ID' });
+      }
+
+  
+    try {
+      const [result] = await pool.query('DELETE FROM users WHERE user_id = ?', [user_id]);
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'User can not be found' });
+      }
+  
+      res.json({ message: 'The user has been deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+>>>>>>> 29281361ff822837067857edb8c3c8c58b689ea7
     }
 
     try {
