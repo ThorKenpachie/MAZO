@@ -79,15 +79,15 @@ const createUser = async (req, res) => {
   };
 
   const deleteUser = async (req, res) => {
-    const { id } = req.params;
+    const { user_id } = req.params;
 
-    if (!id || isNaN(Number(id))) {
+    if (!user_id || isNaN(Number(id))) {
         return res.status(400).json({ error: 'Invalid or missing ID' });
       }
 
   
     try {
-      const [result] = await pool.query('DELETE FROM users WHERE users_id = ?', [id]);
+      const [result] = await pool.query('DELETE FROM users WHERE user_id = ?', [id]);
   
       if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'User can not be found' });
