@@ -1,8 +1,17 @@
-// CORS middleware - Allowing specific origin (your frontend)
 const cors = require('cors');
+
+const allowedOrigins = [
+  'http://localhost:5173', 
+  'https://mazo-p11-o323.vercel.app'
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow your frontend to access the server
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'] // Specify allowed headers
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
